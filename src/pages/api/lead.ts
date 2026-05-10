@@ -4,6 +4,8 @@ import { createLeadAiSummary } from '../../lib/aiLeadSummary';
 // @ts-ignore
 import { env } from 'cloudflare:workers';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
@@ -24,9 +26,8 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // 3. Environment Variables (Astro v6 + Cloudflare)
-    // Using the explicitly required 'cloudflare:workers' env
-    const TG_TOKEN = env?.TELEGRAM_BOT_TOKEN || (process as any)?.env?.TELEGRAM_BOT_TOKEN;
-    const TG_CHAT_ID = env?.TELEGRAM_CHAT_ID || (process as any)?.env?.TELEGRAM_CHAT_ID;
+    const TG_TOKEN = env?.TELEGRAM_BOT_TOKEN;
+    const TG_CHAT_ID = env?.TELEGRAM_CHAT_ID;
 
     if (!TG_TOKEN || !TG_CHAT_ID) {
       return new Response(JSON.stringify({
@@ -39,7 +40,6 @@ export const POST: APIRoute = async ({ request }) => {
     // 4. AI Summary (Optional)
     let aiSummary = null;
     try {
-      // Pass the cloudflare:workers env object directly
       aiSummary = await createLeadAiSummary(env, { name, contact, need, message });
     } catch (aiError) {
       console.error("AI Summary generation failed:", aiError);

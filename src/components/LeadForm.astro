@@ -8,8 +8,8 @@
 			<form class="form" id="contact-form">
 				<!-- Honeypot -->
 				<div class="hp-field">
-					<label for="honeypot">Leave this blank</label>
-					<input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off" />
+					<label for="company">Company</label>
+					<input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
 				</div>
 
 				<div class="form__group">
@@ -26,11 +26,11 @@
 					<label for="type">Що потрібно?</label>
 					<select id="type" name="type" required>
 						<option value="" disabled selected>Оберіть варіант</option>
-						<option value="site">Веб-сайт</option>
-						<option value="bot">Telegram-бот</option>
-						<option value="crm">CRM / Адмін-панель</option>
-						<option value="automation">Автоматизація</option>
-						<option value="other">Інше</option>
+						<option value="Веб-сайт">Веб-сайт</option>
+						<option value="Telegram-бот">Telegram-бот</option>
+						<option value="CRM / Адмін-панель">CRM / Адмін-панель</option>
+						<option value="Автоматизація">Автоматизація</option>
+						<option value="Інше">Інше</option>
 					</select>
 				</div>
 				
@@ -44,8 +44,8 @@
 			</form>
 			
 			<div class="form-success" id="form-success" style="display: none;">
-				<h3>Дякуємо. Заявку підготовлено.</h3>
-				<p>Ми зв’яжемося з вами найближчим часом. На наступному етапі підключимо Telegram та AI-обробку.</p>
+				<h3>Дякуємо. Заявку відправлено.</h3>
+				<p>Ми зв’яжемося з вами найближчим часом.</p>
 				<button class="btn" id="form-reset">Відправити ще один запит</button>
 			</div>
 		</div>
@@ -70,7 +70,7 @@
 			contact: formData.get('contact'),
 			need: formData.get('type'),
 			message: formData.get('message'),
-			honeypot: formData.get('honeypot')
+			company: formData.get('company')
 		};
 
 		try {
@@ -86,11 +86,15 @@
 				form.style.display = 'none';
 				if (success) success.style.display = 'block';
 			} else {
-				if (errorMsg) errorMsg.innerText = result.message || 'Сталася помилка. Спробуйте пізніше.';
+				if (errorMsg) {
+					errorMsg.innerText = result.ok === false && result.message === "Lead was received, but notification failed" 
+						? "Дякуємо. Заявку отримано, але виникла технічна затримка з повідомленням."
+						: "Не вдалося відправити заявку. Напишіть нам напряму: hello@velych.pp.ua";
+				}
 				if (submitBtn) submitBtn.disabled = false;
 			}
 		} catch (error) {
-			if (errorMsg) errorMsg.innerText = 'Помилка мережі. Перевірте з’єднання.';
+			if (errorMsg) errorMsg.innerText = 'Не вдалося відправити заявку. Напишіть нам напряму: hello@velych.pp.ua';
 			if (submitBtn) submitBtn.disabled = false;
 		}
 	});
@@ -159,10 +163,11 @@
 	}
 
 	.error-msg {
-		color: red;
+		color: #e63946;
 		font-weight: 700;
 		margin-top: 1rem;
 		text-align: center;
+		line-height: 1.4;
 	}
 
 	.form-success {

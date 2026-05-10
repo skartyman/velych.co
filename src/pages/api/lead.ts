@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
 import { sendTelegramLead } from '../../lib/telegram';
+import { createLeadAiSummary } from '../../lib/aiLeadSummary';
 // @ts-ignore
-import { env } from 'cloudflare:workers';
+import { env as cfEnv } from 'cloudflare:workers';
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
@@ -18,30 +19,35 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return new Response(JSON.stringify({ ok: false, message: "Missing mandatory fields" }), { status: 400 });
     }
 
-    // 3. Environment Variables (Astro v6 + Cloudflare)
-    // Using the recommended way for Astro v6 / Cloudflare Workers
-    let TG_TOKEN = env?.TELEGRAM_BOT_TOKEN;
-    let TG_CHAT_ID = env?.TELEGRAM_CHAT_ID;
+    if (message.length < 5) {
+      return new Response(JSON.stringify({ ok: false, message: "Message too short" }), { status: 400 });
+    }
 
-    // Fallback for local development
-    TG_TOKEN = TG_TOKEN || (import.meta as any).env?.TELEGRAM_BOT_TOKEN || (process as any)?.env?.TELEGRAM_BOT_TOKEN;
-    TG_CHAT_ID = TG_CHAT_ID || (import.meta as any).env?.TELEGRAM_CHAT_ID || (process as any)?.env?.TELEGRAM_CHAT_ID;
+    // 3. Environment Variables
+    const runtime = (locals as any).runtime;
+    const env = runtime?.env || cfEnv || (import.meta as any).env || process?.env;
+
+    const TG_TOKEN = env?.TELEGRAM_BOT_TOKEN;
+    const TG_CHAT_ID = env?.TELEGRAM_CHAT_ID;
 
     if (!TG_TOKEN || !TG_CHAT_ID) {
       return new Response(JSON.stringify({
         ok: false,
         message: "Telegram configuration is missing",
-        debug: { 
-            hasEnv: !!env,
-            hasToken: !!TG_TOKEN, 
-            hasChatId: !!TG_CHAT_ID 
-        }
       }), { status: 500 });
     }
 
-    // 4. Send to Telegram
+    // 4. AI Summary (Optional)
+    let aiSummary = null;
     try {
-      await sendTelegramLead(TG_TOKEN, TG_CHAT_ID, { name, contact, need, message });
+      aiSummary = await createLeadAiSummary(env, { name, contact, need, message });
+    } catch (aiError) {
+      console.error("AI Summary generation failed:", aiError);
+    }
+
+    // 5. Send to Telegram
+    try {
+      await sendTelegramLead(TG_TOKEN, TG_CHAT_ID, { name, contact, need, message }, aiSummary);
       
       return new Response(JSON.stringify({
         ok: true,
@@ -49,6 +55,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }), { status: 200 });
 
     } catch (tgError: any) {
+      console.error("Telegram notification failed:", tgError);
       return new Response(JSON.stringify({
         ok: false,
         message: "Lead received, but Telegram notification failed",

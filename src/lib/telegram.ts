@@ -1,3 +1,5 @@
+import type { LeadAiSummary } from './aiLeadSummary';
+
 export interface LeadData {
   name: string;
   contact: string;
@@ -5,8 +7,28 @@ export interface LeadData {
   message: string;
 }
 
-export async function sendTelegramLead(token: string, chatId: string, lead: LeadData) {
-  const text = `🟩 Нова заявка VELYCH.CO\n\n👤 Імʼя: ${lead.name}\n📞 Контакт: ${lead.contact}\n🧩 Що потрібно: ${lead.need}\n💬 Опис:\n${lead.message}\n\n🌐 Джерело: velych.pp.ua`;
+export async function sendTelegramLead(token: string, chatId: string, lead: LeadData, aiSummary: LeadAiSummary | null) {
+  let text = `🟩 Нова заявка VELYCH.CO\n\n`;
+  text += `👤 Імʼя: ${lead.name}\n`;
+  text += `📞 Контакт: ${lead.contact}\n`;
+  text += `🧩 Що потрібно: ${lead.need}\n\n`;
+
+  if (aiSummary) {
+    text += `🤖 AI-резюме:\n`;
+    text += `${aiSummary.summary}\n\n`;
+    text += `Категорія: ${aiSummary.category}\n`;
+    text += `Складність: ${aiSummary.complexity}\n`;
+    text += `Терміновість: ${aiSummary.urgency}\n`;
+    text += `Наступний крок: ${aiSummary.nextStep}\n\n`;
+  }
+
+  text += `💬 Опис:\n${lead.message}\n\n`;
+
+  if (!aiSummary) {
+    text += `⚠️ AI-резюме недоступне.\n\n`;
+  }
+
+  text += `🌐 Джерело: https://velych.pp.ua`;
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
 

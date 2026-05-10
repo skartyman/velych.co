@@ -1,0 +1,68 @@
+---
+---
+<section class="hero">
+	<div class="container hero__inner">
+		<div class="hero__content">
+			<h1 class="hero__title">
+				Ми робимо робочі інструменти<br/>
+				<span>для заявок, клієнтів і процесів.</span>
+			</h1>
+			<p class="hero__subtitle">
+				Красиво — обов’язково.<br/>
+				Але спочатку все повинно працювати.
+			</p>
+			<div class="hero__actions">
+				<a href="#form" class="btn btn-primary">Обговорити проєкт</a>
+				<a href="/proiekty" class="btn">Показати, як це працює</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		background-color: var(--color-white);
+		display: flex;
+		align-items: center;
+		min-height: 80vh;
+	}
+
+	.hero__title {
+		font-size: clamp(2.5rem, 8vw, 5rem);
+		line-height: 0.95;
+		margin-bottom: 2rem;
+	}
+
+	.hero__title span {
+		background-color: var(--color-lime);
+		padding: 0 10px;
+	}
+
+	.hero__subtitle {
+		font-size: clamp(1.2rem, 3vw, 1.8rem);
+		font-weight: 500;
+		margin-bottom: 3rem;
+		max-width: 800px;
+	}
+
+	.hero__actions {
+		display: flex;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			min-height: auto;
+		}
+		
+		.hero__actions {
+			flex-direction: column;
+		}
+		
+		.hero__actions .btn {
+			width: 100%;
+			text-align: center;
+		}
+	}
+</style>

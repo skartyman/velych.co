@@ -1,0 +1,71 @@
+---
+const benefits = [
+	{
+		title: "Без зайвого шуму",
+		text: "Не обіцяємо золотих гір. Говоримо прямо, робимо чітко, здаємо в строк."
+	},
+	{
+		title: "Сайт + бот + CRM",
+		text: "Зв’язуємо інструменти в систему, щоб заявки не губились, а робота рухалась."
+	},
+	{
+		title: "Менше хаосу. Більше контролю.",
+		text: "Автоматизуємо рутину, наводимо порядок у процесах і даних."
+	},
+	{
+		title: "Підтримка по ділу",
+		text: "Не зникаємо після запуску. Допомагаємо розвивати те, що працює."
+	}
+];
+---
+<section class="benefits">
+	<div class="container">
+		<div class="grid">
+			{benefits.map(benefit => (
+				<div class="card">
+					<h3 class="card__title">{benefit.title}</h3>
+					<p class="card__text">{benefit.text}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.card {
+		padding: 2.5rem;
+		border: var(--border-width) solid var(--color-black);
+		background-color: var(--color-white);
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.card:hover {
+		background-color: var(--color-lime);
+		box-shadow: 8px 8px 0px var(--color-black);
+		transform: translate(-4px, -4px);
+	}
+
+	.card__title {
+		font-size: 1.5rem;
+		line-height: 1.1;
+	}
+
+	.card__text {
+		font-size: 1.1rem;
+		font-weight: 500;
+	}
+
+	@media (max-width: 768px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

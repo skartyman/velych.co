@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Проєкти — VELYCH.CO">
+	<Header />
+	<main>
+		<section class="stub">
+			<div class="container">
+				<h1 class="page-title">Проєкти</h1>
+				<div class="stub__card">
+					<p>Кейси скоро з’являться</p>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</BaseLayout>
+
+<style>
+	.stub {
+		min-height: 60vh;
+		display: flex;
+		align-items: center;
+	}
+	.page-title {
+		font-size: 4rem;
+		margin-bottom: 2rem;
+	}
+	.stub__card {
+		padding: 4rem;
+		border: var(--border-width) solid var(--color-black);
+		background-color: var(--color-lime);
+		font-size: 2rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		text-align: center;
+	}
+</style>

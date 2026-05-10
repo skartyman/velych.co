@@ -1,0 +1,137 @@
+---
+---
+<section class="lead-form" id="form">
+	<div class="container">
+		<div class="form-wrapper">
+			<h2 class="section-title">Обговорити проєкт</h2>
+			
+			<form class="form" id="contact-form">
+				<div class="form__group">
+					<label for="name">Ім’я</label>
+					<input type="text" id="name" name="name" placeholder="Як вас звати?" required />
+				</div>
+				
+				<div class="form__group">
+					<label for="contact">Контакт</label>
+					<input type="text" id="contact" name="contact" placeholder="Telegram або телефон" required />
+				</div>
+				
+				<div class="form__group">
+					<label for="type">Що потрібно?</label>
+					<select id="type" name="type">
+						<option value="site">Веб-сайт</option>
+						<option value="bot">Telegram-бот</option>
+						<option value="crm">CRM / Адмін-панель</option>
+						<option value="automation">Автоматизація</option>
+						<option value="other">Інше</option>
+					</select>
+				</div>
+				
+				<div class="form__group">
+					<label for="message">Опис задачі</label>
+					<textarea id="message" name="message" rows="4" placeholder="Розкажіть коротко про ваш проєкт"></textarea>
+				</div>
+				
+				<button type="submit" class="btn btn-primary">Відправити запит</button>
+			</form>
+			
+			<div class="form-success" id="form-success">
+				<h3>Дякуємо. Заявку підготовлено.</h3>
+				<p>На наступному етапі підключимо Telegram та AI-обробку.</p>
+				<button class="btn" id="form-reset">Зрозумів</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const form = document.getElementById('contact-form') as HTMLFormElement;
+	const success = document.getElementById('form-success');
+	const reset = document.getElementById('form-reset');
+
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		form.style.display = 'none';
+		if (success) success.style.display = 'block';
+	});
+
+	reset?.addEventListener('click', () => {
+		if (success) success.style.display = 'none';
+		form.style.display = 'flex';
+		form.reset();
+	});
+</script>
+
+<style>
+	.form-wrapper {
+		max-width: 800px;
+		margin: 0 auto;
+		border: var(--border-width) solid var(--color-black);
+		padding: 4rem;
+		background-color: var(--color-white);
+	}
+
+	.section-title {
+		font-size: 2.5rem;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.form__group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.form__group label {
+		font-weight: 700;
+		text-transform: uppercase;
+		font-size: 0.9rem;
+	}
+
+	.form__group input, 
+	.form__group select, 
+	.form__group textarea {
+		padding: 1rem;
+		border: var(--border-width) solid var(--color-black);
+		font-family: var(--font-main);
+		font-size: 1rem;
+		background-color: var(--color-milk);
+	}
+
+	.form__group input:focus, 
+	.form__group select:focus, 
+	.form__group textarea:focus {
+		outline: none;
+		background-color: var(--color-white);
+		box-shadow: 4px 4px 0px var(--color-lime);
+	}
+
+	.form-success {
+		display: none;
+		text-align: center;
+		padding: 2rem 0;
+	}
+
+	.form-success h3 {
+		font-size: 1.8rem;
+		margin-bottom: 1rem;
+	}
+
+	.form-success p {
+		font-size: 1.2rem;
+		margin-bottom: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.form-wrapper {
+			padding: 2rem;
+		}
+	}
+</style>

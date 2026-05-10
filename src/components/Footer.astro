@@ -1,0 +1,83 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+	<div class="container footer__inner">
+		<div class="footer__left">
+			<div class="logo">// VELYCH.CO</div>
+			<p class="footer__tagline">Веб-розробка з характером</p>
+		</div>
+		
+		<div class="footer__right">
+			<div class="footer__info">
+				<p>Українська команда · працюємо віддалено</p>
+				<p><a href="mailto:hello@velych.pp.ua">hello@velych.pp.ua</a></p>
+			</div>
+			<div class="footer__copyright">
+				&copy; {year} VELYCH.CO. Всі права захищені.
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		padding: 4rem 0;
+		background-color: var(--color-black);
+		color: var(--color-white);
+	}
+
+	.footer__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 2rem;
+	}
+
+	.logo {
+		font-size: 2rem;
+		font-weight: 800;
+		margin-bottom: 0.5rem;
+		color: var(--color-lime);
+	}
+
+	.footer__tagline {
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 0.9rem;
+		opacity: 0.8;
+	}
+
+	.footer__right {
+		text-align: right;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.footer__info {
+		font-weight: 500;
+		font-size: 1.1rem;
+	}
+
+	.footer__info a:hover {
+		color: var(--color-lime);
+	}
+
+	.footer__copyright {
+		font-size: 0.8rem;
+		opacity: 0.6;
+		text-transform: uppercase;
+	}
+
+	@media (max-width: 768px) {
+		.footer__inner {
+			flex-direction: column;
+			text-align: left;
+		}
+		
+		.footer__right {
+			text-align: left;
+		}
+	}
+</style>

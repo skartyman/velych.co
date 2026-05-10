@@ -1,0 +1,86 @@
+---
+const services = [
+	{
+		title: "Веб-сайти",
+		text: "Лендінги, сайти компаній, каталоги та промо-сторінки."
+	},
+	{
+		title: "Telegram-боти",
+		text: "Заявки, авто відповіді, повідомлення менеджерам, міні-застосунки."
+	},
+	{
+		title: "CRM та адмін-панелі",
+		text: "Статуси, клієнти, задачі, ролі, історія та контроль процесів."
+	},
+	{
+		title: "Автоматизація",
+		text: "Google Sheets, 1C, API, Telegram, звіти та інтеграції."
+	}
+];
+---
+<section class="services">
+	<div class="container">
+		<h2 class="section-title">Послуги</h2>
+		<div class="grid">
+			{services.map(service => (
+				<div class="service-card">
+					<div class="service-card__header">
+						<h3 class="service-card__title">{service.title}</h3>
+					</div>
+					<div class="service-card__body">
+						<p class="service-card__text">{service.text}</p>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.section-title {
+		font-size: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 0;
+		border: var(--border-width) solid var(--color-black);
+	}
+
+	.service-card {
+		border: 1px solid var(--color-black);
+		background-color: var(--color-white);
+		transition: all 0.2s ease;
+	}
+
+	.service-card:hover {
+		background-color: var(--color-lime);
+		z-index: 1;
+	}
+
+	.service-card__header {
+		padding: 2rem;
+		border-bottom: var(--border-width) solid var(--color-black);
+	}
+
+	.service-card__title {
+		font-size: 1.8rem;
+	}
+
+	.service-card__body {
+		padding: 2rem;
+	}
+
+	.service-card__text {
+		font-size: 1.1rem;
+		font-weight: 500;
+	}
+
+	@media (max-width: 768px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

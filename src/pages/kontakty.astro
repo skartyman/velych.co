@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Контакти — VELYCH.CO">
+	<Header />
+	<main>
+		<section class="contacts-hero">
+			<div class="container">
+				<h1 class="page-title">Контакти</h1>
+				
+				<div class="contacts-grid">
+					<div class="contact-card">
+						<h3>Email</h3>
+						<p><a href="mailto:hello@velych.pp.ua">hello@velych.pp.ua</a></p>
+					</div>
+					<div class="contact-card">
+						<h3>Telegram</h3>
+						<p>Додамо після запуску</p>
+					</div>
+					<div class="contact-card contact-card--black">
+						<h3>Локація</h3>
+						<p>Українська команда · працюємо віддалено</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<LeadForm />
+	</main>
+	<Footer />
+</BaseLayout>
+
+<style>
+	.contacts-hero {
+		padding: 4rem 0;
+	}
+	.page-title {
+		font-size: 4rem;
+		margin-bottom: 3rem;
+	}
+	.contacts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+	}
+	.contact-card {
+		padding: 2.5rem;
+		border: var(--border-width) solid var(--color-black);
+		background-color: var(--color-white);
+	}
+	.contact-card h3 {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+		opacity: 0.6;
+	}
+	.contact-card p {
+		font-size: 1.4rem;
+		font-weight: 700;
+	}
+	.contact-card--black {
+		background-color: var(--color-black);
+		color: var(--color-white);
+	}
+	@media (max-width: 768px) {
+		.contacts-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

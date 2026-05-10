@@ -1,0 +1,110 @@
+---
+---
+<header class="header">
+	<div class="container header__inner">
+		<a href="/" class="logo">// VELYCH.CO</a>
+		
+		<nav class="nav">
+			<ul class="nav__list">
+				<li><a href="/posluhy">Послуги</a></li>
+				<li><a href="/proiekty">Проєкти</a></li>
+				<li><a href="/pidkhid">Підхід</a></li>
+				<li><a href="/kontakty">Контакти</a></li>
+			</ul>
+		</nav>
+
+		<div class="header__actions">
+			<a href="#form" class="btn btn-sm btn-discuss">Обговорити</a>
+			<button class="burger" aria-label="Menu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+	</div>
+</header>
+
+<style>
+	.header {
+		border-bottom: var(--border-width) solid var(--color-black);
+		padding: 1.5rem 0;
+		background-color: var(--color-milk);
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+	}
+
+	.header__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.logo {
+		font-size: 1.5rem;
+		font-weight: 800;
+		letter-spacing: -0.05em;
+	}
+
+	.nav__list {
+		display: flex;
+		list-style: none;
+		gap: 2rem;
+	}
+
+	.nav__list a {
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 0.9rem;
+	}
+
+	.nav__list a:hover {
+		color: var(--color-lime);
+		-webkit-text-stroke: 1px var(--color-black);
+	}
+
+	.header__actions {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.btn-sm {
+		padding: 0.5rem 1rem;
+		font-size: 0.8rem;
+	}
+
+	.burger {
+		display: none;
+		flex-direction: column;
+		gap: 6px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 4px;
+	}
+
+	.burger span {
+		display: block;
+		width: 25px;
+		height: 3px;
+		background-color: var(--color-black);
+	}
+
+	@media (max-width: 1024px) {
+		.nav {
+			display: none;
+		}
+		
+		.burger {
+			display: flex;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.btn-discuss {
+			padding: 0.4rem 0.8rem;
+			font-size: 0.7rem;
+		}
+	}
+</style>

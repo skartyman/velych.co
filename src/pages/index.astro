@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Benefits from '../components/Benefits.astro';
+import Services from '../components/Services.astro';
+import Difference from '../components/Difference.astro';
+import Process from '../components/Process.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout 
+	title="VELYCH.CO — веб-розробка з характером"
+	description="Українська веб-компанія. Робимо сайти, Telegram-боти, CRM та автоматизацію для заявок, клієнтів і процесів."
+>
+	<Header />
+	<main>
+		<Hero />
+		<Benefits />
+		<Services />
+		<Difference />
+		<Process />
+		<LeadForm />
+	</main>
+	<Footer />
+</BaseLayout>

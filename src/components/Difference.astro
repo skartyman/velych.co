@@ -1,0 +1,124 @@
+---
+const comparison = [
+	{
+		old: "Красиві обіцянки та шаблонні рішення",
+		new: "Чесна розмова і рішення під задачу"
+	},
+	{
+		old: "Роблять сайт і зникають",
+		new: "Будуємо систему і залишаємось поруч"
+	},
+	{
+		old: "Терміни зриваються, процес непрозорий",
+		new: "Фіксуємо строки й тримаємо в курсі"
+	},
+	{
+		old: "Заявки приходять, але губляться",
+		new: "Заявки обробляються і стають клієнтами"
+	},
+	{
+		old: "Немає інтеграцій і автоматизації",
+		new: "Інтегруємо сайт, бота, CRM та аналітику"
+	},
+	{
+		old: "Ви платите за години",
+		new: "Ви отримуєте результат і зростання"
+	}
+];
+---
+<section class="difference">
+	<div class="container">
+		<h2 class="section-title">Чому ми?</h2>
+		
+		<div class="table">
+			<div class="table__header">
+				<div class="table__col">Типова студія</div>
+				<div class="table__col">VELYCH.CO</div>
+			</div>
+			
+			{comparison.map(item => (
+				<div class="table__row">
+					<div class="table__col">{item.old}</div>
+					<div class="table__col table__col--accent">{item.new}</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.section-title {
+		font-size: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.table {
+		border: var(--border-width) solid var(--color-black);
+		background-color: var(--color-white);
+	}
+
+	.table__header {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		border-bottom: var(--border-width) solid var(--color-black);
+		background-color: var(--color-black);
+		color: var(--color-white);
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	.table__row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		border-bottom: 1px solid var(--color-black);
+	}
+
+	.table__row:last-child {
+		border-bottom: none;
+	}
+
+	.table__col {
+		padding: 1.5rem 2rem;
+		font-size: 1.1rem;
+		font-weight: 500;
+		border-right: 1px solid var(--color-black);
+	}
+
+	.table__col:last-child {
+		border-right: none;
+	}
+
+	.table__col--accent {
+		background-color: var(--color-milk);
+		font-weight: 600;
+	}
+
+	.table__row:hover .table__col--accent {
+		background-color: var(--color-lime);
+	}
+
+	@media (max-width: 768px) {
+		.table__header, .table__row {
+			grid-template-columns: 1fr;
+		}
+		
+		.table__header .table__col:first-child {
+			display: none;
+		}
+
+		.table__col {
+			border-right: none;
+			border-bottom: 1px solid var(--color-black);
+		}
+
+		.table__col:before {
+			content: "→ ";
+			color: var(--color-black);
+			font-weight: 800;
+		}
+		
+		.table__header .table__col:before {
+			content: "";
+		}
+	}
+</style>

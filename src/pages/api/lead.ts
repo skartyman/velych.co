@@ -6,42 +6,29 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const data = await request.json();
     const { name, contact, need, message, company } = data;
 
-    // 1. Honeypot check (field name is 'company')
+    // 1. Honeypot check
     if (company) {
-      console.log('Spam blocked via honeypot');
-      return new Response(JSON.stringify({
-        ok: true,
-        message: "Lead received" 
-      }), { status: 200 });
+      return new Response(JSON.stringify({ ok: true, message: "Lead received" }), { status: 200 });
     }
 
     // 2. Validation
     if (!name || !contact || !need || !message) {
-      return new Response(JSON.stringify({
-        ok: false,
-        message: "Missing mandatory fields"
-      }), { status: 400 });
+      return new Response(JSON.stringify({ ok: false, message: "Missing mandatory fields" }), { status: 400 });
     }
 
-    if (message.length < 5) {
-      return new Response(JSON.stringify({
-        ok: false,
-        message: "Message too short"
-      }), { status: 400 });
-    }
-
-    // 3. Telegram environment check
-    // In Astro with Cloudflare adapter, env vars are often in runtime.env or process.env
-    // We'll check both for maximum compatibility
-    const runtime = locals.runtime as any;
-    const TG_TOKEN = runtime?.env?.TELEGRAM_BOT_TOKEN || (import.meta as any).env?.TELEGRAM_BOT_TOKEN;
-    const TG_CHAT_ID = runtime?.env?.TELEGRAM_CHAT_ID || (import.meta as any).env?.TELEGRAM_CHAT_ID;
+    // 3. Environment Variables (Cloudflare Pages / Workers)
+    // In Astro + Cloudflare, env vars are in locals.runtime.env
+    const runtime = (locals as any).runtime;
+    
+    // Support for different adapter versions / local dev
+    const TG_TOKEN = runtime?.env?.TELEGRAM_BOT_TOKEN || process?.env?.TELEGRAM_BOT_TOKEN;
+    const TG_CHAT_ID = runtime?.env?.TELEGRAM_CHAT_ID || process?.env?.TELEGRAM_CHAT_ID;
 
     if (!TG_TOKEN || !TG_CHAT_ID) {
-      console.error('Telegram config missing:', { hasToken: !!TG_TOKEN, hasChatId: !!TG_CHAT_ID });
       return new Response(JSON.stringify({
         ok: false,
-        message: "Telegram is not configured"
+        message: "Telegram configuration is missing in environment",
+        debug: { hasToken: !!TG_TOKEN, hasChatId: !!TG_CHAT_ID }
       }), { status: 500 });
     }
 
@@ -54,19 +41,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
         message: "Lead sent"
       }), { status: 200 });
 
-    } catch (tgError) {
-      console.error('Telegram send failed:', tgError);
+    } catch (tgError: any) {
       return new Response(JSON.stringify({
         ok: false,
-        message: "Lead was received, but notification failed"
-      }), { status: 200 }); // Still 200 because the lead reached the server
+        message: "Lead received, but Telegram notification failed",
+        error: tgError.message
+      }), { status: 200 });
     }
 
-  } catch (error) {
-    console.error('API lead error:', error);
+  } catch (error: any) {
     return new Response(JSON.stringify({
       ok: false,
-      message: "Internal Server Error"
+      message: "Internal Server Error",
+      error: error.message
     }), { status: 500 });
   }
 };

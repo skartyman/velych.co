@@ -10,19 +10,22 @@ import Footer from '../components/Footer.astro';
 	<main>
 		<section class="page-hero">
 			<div class="container">
+				<div class="outline-badge">Філософія</div>
 				<h1 class="page-title">Наш підхід</h1>
-				<p class="page-subtitle">Чесно, без води. Спочатку процес, потім дизайн.</p>
+				<p class="page-subtitle">Чесно, без води. Спочатку процес та бізнес-логіка, потім дизайн.</p>
 			</div>
 		</section>
 		
-		<section class="details">
+		<section class="details section-dark">
 			<div class="container">
-				<div class="grid">
-					<div class="card">
+				<div class="approach-grid">
+					<div class="brutal-card card-dark">
+						<span class="lime-dot"></span>
 						<h3>Нічого зайвого</h3>
 						<p>Ми не продаємо години розробки чи складні терміни. Ми вирішуємо бізнес-задачу за допомогою коду.</p>
 					</div>
-					<div class="card">
+					<div class="brutal-card card-dark">
+						<span class="lime-dot"></span>
 						<h3>Прозорість</h3>
 						<p>Ви завжди знаєте, на якому етапі проєкт. Ніяких сюрпризів за день до релізу.</p>
 					</div>
@@ -37,31 +40,39 @@ import Footer from '../components/Footer.astro';
 
 <style>
 	.page-hero {
-		background-color: var(--color-white);
-		padding: 4rem 0;
+		padding: 10rem 0 6rem;
 	}
 	.page-title {
-		font-size: 4rem;
+		font-size: clamp(3rem, 8vw, 6rem);
+		margin: 2rem 0;
 	}
 	.page-subtitle {
 		font-size: 1.5rem;
 		font-weight: 500;
+		max-width: 600px;
 	}
-	.grid {
+	.approach-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;
 	}
-	.card {
-		padding: 3rem;
-		border: var(--border-width) solid var(--color-black);
+	.card-dark {
+		background-color: var(--color-black);
+		color: var(--color-white);
+		border-color: rgba(255,255,255,0.1);
 	}
-	.card h3 {
-		font-size: 1.5rem;
-		margin-bottom: 1rem;
+	.card-dark h3 {
+		font-size: 1.8rem;
+		margin-bottom: 1.5rem;
+		color: var(--color-lime);
+	}
+	.card-dark p {
+		font-size: 1.1rem;
+		opacity: 0.8;
+		line-height: 1.6;
 	}
 	@media (max-width: 768px) {
-		.grid {
+		.approach-grid {
 			grid-template-columns: 1fr;
 		}
 	}

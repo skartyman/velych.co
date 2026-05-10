@@ -1,0 +1,40 @@
+---
+interface Props {
+	variant?: 'light' | 'dark' | 'compact';
+	className?: string;
+}
+
+const { variant = 'light', className = '' } = Astro.props;
+---
+
+<div class={`logo-container ${variant} ${className}`}>
+	<span class="slashes">//</span>{variant !== 'compact' && <span class="text">VELYCH.CO</span>}
+</div>
+
+<style>
+	.logo-container {
+		display: inline-flex;
+		align-items: center;
+		font-family: 'Space Grotesk', sans-serif;
+		font-weight: 800;
+		letter-spacing: -0.05em;
+		text-transform: uppercase;
+		font-size: 1.5rem;
+		user-select: none;
+	}
+
+	.slashes {
+		color: var(--color-lime);
+		margin-right: 0.2em;
+	}
+
+	.light .text {
+		color: var(--color-black);
+	}
+
+	.dark .text {
+		color: var(--color-white);
+	}
+
+	/* variant === 'compact' is handled by Astro.props above */
+</style>

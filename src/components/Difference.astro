@@ -30,95 +30,150 @@ const comparison = [
 	<div class="container">
 		<h2 class="section-title">Чому ми?</h2>
 		
-		<div class="table">
-			<div class="table__header">
-				<div class="table__col">Типова студія</div>
-				<div class="table__col">VELYCH.CO</div>
+		<div class="comparison-block corner-bracket">
+			<div class="comp-header">
+				<div class="comp-header__col">Типова студія</div>
+				<div class="comp-header__col">VELYCH.CO</div>
 			</div>
 			
-			{comparison.map(item => (
-				<div class="table__row">
-					<div class="table__col">{item.old}</div>
-					<div class="table__col table__col--accent">{item.new}</div>
-				</div>
-			))}
+			<div class="comp-body">
+				{comparison.map(item => (
+					<div class="comp-row">
+						<div class="comp-col comp-col--old">{item.old}</div>
+						<div class="comp-col comp-col--arrow">→</div>
+						<div class="comp-col comp-col--new">{item.new}</div>
+					</div>
+				))}
+			</div>
 		</div>
 	</div>
 </section>
 
 <style>
 	.section-title {
-		font-size: 3rem;
-		margin-bottom: 3rem;
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		margin-bottom: 4rem;
+		text-align: center;
 	}
 
-	.table {
-		border: var(--border-width) solid var(--color-black);
+	.comparison-block {
 		background-color: var(--color-white);
+		border: var(--border-width) solid var(--color-black);
 	}
 
-	.table__header {
+	.comp-header {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		border-bottom: var(--border-width) solid var(--color-black);
 		background-color: var(--color-black);
 		color: var(--color-white);
-		font-weight: 700;
+		font-weight: 800;
 		text-transform: uppercase;
+		font-size: 1.1rem;
+		letter-spacing: 0.05em;
 	}
 
-	.table__row {
+	.comp-header__col {
+		padding: 1.5rem 3rem;
+		border-right: 1px solid rgba(255,255,255,0.2);
+	}
+
+	.comp-header__col:last-child {
+		border-right: none;
+		color: var(--color-lime);
+	}
+
+	.comp-row {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		border-bottom: 1px solid var(--color-black);
+		grid-template-columns: 1fr 50px 1fr;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		transition: var(--transition);
 	}
 
-	.table__row:last-child {
+	.comp-row:last-child {
 		border-bottom: none;
 	}
 
-	.table__col {
-		padding: 1.5rem 2rem;
+	.comp-row:hover {
+		background-color: rgba(200, 255, 0, 0.05);
+	}
+
+	.comp-col {
+		padding: 2rem 3rem;
 		font-size: 1.1rem;
-		font-weight: 500;
-		border-right: 1px solid var(--color-black);
-	}
-
-	.table__col:last-child {
-		border-right: none;
-	}
-
-	.table__col--accent {
-		background-color: var(--color-milk);
 		font-weight: 600;
+		display: flex;
+		align-items: center;
 	}
 
-	.table__row:hover .table__col--accent {
-		background-color: var(--color-lime);
+	.comp-col--arrow {
+		justify-content: center;
+		color: var(--color-lime);
+		font-weight: 900;
+		padding: 0;
+	}
+
+	.comp-col--old {
+		opacity: 0.5;
+	}
+
+	.comp-col--new {
+		background-color: rgba(200, 255, 0, 0.02);
+	}
+
+	@media (max-width: 1024px) {
+		.comp-col {
+			padding: 1.5rem;
+		}
 	}
 
 	@media (max-width: 768px) {
-		.table__header, .table__row {
-			grid-template-columns: 1fr;
-		}
-		
-		.table__header .table__col:first-child {
+		.comp-header {
 			display: none;
 		}
 
-		.table__col {
-			border-right: none;
-			border-bottom: 1px solid var(--color-black);
+		.comp-row {
+			grid-template-columns: 1fr;
+			padding: 2rem;
+			gap: 0.5rem;
 		}
 
-		.table__col:before {
-			content: "→ ";
-			color: var(--color-black);
-			font-weight: 800;
+		.comp-col {
+			padding: 0.5rem 0;
+		}
+
+		.comp-col--old::before {
+			content: "Типово: ";
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			display: block;
+			width: 100%;
+			margin-bottom: 0.2rem;
 		}
 		
-		.table__header .table__col:before {
-			content: "";
+		.comp-col--old {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.comp-col--new::before {
+			content: "VELYCH.CO: ";
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			display: block;
+			margin-bottom: 0.2rem;
+			color: var(--color-black);
+		}
+
+		.comp-col--new {
+			background-color: var(--color-lime);
+			padding: 1rem;
+			margin-top: 0.5rem;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.comp-col--arrow {
+			display: none;
 		}
 	}
 </style>

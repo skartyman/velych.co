@@ -7,11 +7,12 @@ import Footer from '../components/Footer.astro';
 <BaseLayout title="Проєкти — VELYCH.CO">
 	<Header />
 	<main>
-		<section class="stub">
+		<section class="stub section-dark">
 			<div class="container">
-				<h1 class="page-title">Проєкти</h1>
-				<div class="stub__card">
-					<p>Кейси скоро з’являться</p>
+				<div class="outline-badge">Кейси</div>
+				<h1 class="page-title">Наші Проєкти</h1>
+				<div class="brutal-card stub__card">
+					<p>Кейси скоро з’являться.<br/>Зараз ми працюємо над новими інструментами.</p>
 				</div>
 			</div>
 		</section>
@@ -21,21 +22,22 @@ import Footer from '../components/Footer.astro';
 
 <style>
 	.stub {
-		min-height: 60vh;
+		min-height: 80vh;
 		display: flex;
 		align-items: center;
 	}
 	.page-title {
-		font-size: 4rem;
-		margin-bottom: 2rem;
+		font-size: clamp(3rem, 8vw, 6rem);
+		margin: 2rem 0;
 	}
 	.stub__card {
-		padding: 4rem;
-		border: var(--border-width) solid var(--color-black);
+		padding: 6rem;
 		background-color: var(--color-lime);
+		color: var(--color-black);
 		font-size: 2rem;
-		font-weight: 700;
+		font-weight: 800;
 		text-transform: uppercase;
 		text-align: center;
+		border: none;
 	}
 </style>

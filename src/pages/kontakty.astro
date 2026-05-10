@@ -10,20 +10,21 @@ import Footer from '../components/Footer.astro';
 	<main>
 		<section class="contacts-hero">
 			<div class="container">
+				<div class="outline-badge">Зв'язок</div>
 				<h1 class="page-title">Контакти</h1>
 				
 				<div class="contacts-grid">
-					<div class="contact-card">
-						<h3>Email</h3>
-						<p><a href="mailto:hello@velych.pp.ua">hello@velych.pp.ua</a></p>
+					<div class="brutal-card contact-card">
+						<span class="contact-card__label">Email</span>
+						<a href="mailto:hello@velych.pp.ua" class="contact-card__value">hello@velych.pp.ua</a>
 					</div>
-					<div class="contact-card">
-						<h3>Telegram</h3>
-						<p>Додамо після запуску</p>
+					<div class="brutal-card contact-card">
+						<span class="contact-card__label">Telegram</span>
+						<span class="contact-card__value">@velych_co</span>
 					</div>
-					<div class="contact-card contact-card--black">
-						<h3>Локація</h3>
-						<p>Українська команда · працюємо віддалено</p>
+					<div class="brutal-card contact-card card-lime">
+						<span class="contact-card__label">Локація</span>
+						<span class="contact-card__value">Україна · Віддалено</span>
 					</div>
 				</div>
 			</div>
@@ -36,39 +37,47 @@ import Footer from '../components/Footer.astro';
 
 <style>
 	.contacts-hero {
-		padding: 4rem 0;
+		padding: 10rem 0 6rem;
 	}
 	.page-title {
-		font-size: 4rem;
-		margin-bottom: 3rem;
+		font-size: clamp(3rem, 8vw, 6rem);
+		margin: 2rem 0 4rem;
 	}
 	.contacts-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 2rem;
 	}
 	.contact-card {
-		padding: 2.5rem;
-		border: var(--border-width) solid var(--color-black);
-		background-color: var(--color-white);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		min-height: 200px;
+		justify-content: center;
 	}
-	.contact-card h3 {
-		font-size: 0.9rem;
+	.contact-card__label {
+		font-size: 0.8rem;
 		text-transform: uppercase;
-		margin-bottom: 1rem;
-		opacity: 0.6;
+		font-weight: 800;
+		opacity: 0.4;
+		letter-spacing: 0.1em;
 	}
-	.contact-card p {
-		font-size: 1.4rem;
+	.contact-card__value {
+		font-size: 1.8rem;
 		font-weight: 700;
+		word-break: break-all;
 	}
-	.contact-card--black {
-		background-color: var(--color-black);
-		color: var(--color-white);
+	.card-lime {
+		background-color: var(--color-lime);
+		border: none;
 	}
 	@media (max-width: 768px) {
-		.contacts-grid {
-			grid-template-columns: 1fr;
+		.contact-card {
+			min-height: auto;
+			padding: 2rem;
+		}
+		.contact-card__value {
+			font-size: 1.4rem;
 		}
 	}
 </style>

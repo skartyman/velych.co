@@ -8,10 +8,11 @@ import Footer from '../components/Footer.astro';
 <BaseLayout title="Послуги — VELYCH.CO">
 	<Header />
 	<main>
-		<section class="page-hero">
+		<section class="page-hero section-dark">
 			<div class="container">
-				<h1 class="page-title">Послуги</h1>
-				<p class="page-subtitle">Робимо те, що працює. Без зайвого шуму.</p>
+				<div class="outline-badge">Що ми робимо</div>
+				<h1 class="page-title">Наші Послуги</h1>
+				<p class="page-subtitle">Робимо те, що працює. Без зайвого шуму та складних термінів.</p>
 			</div>
 		</section>
 		<Services />
@@ -21,14 +22,16 @@ import Footer from '../components/Footer.astro';
 
 <style>
 	.page-hero {
-		background-color: var(--color-white);
-		padding: 4rem 0;
+		padding: 10rem 0 6rem;
 	}
 	.page-title {
-		font-size: 4rem;
+		font-size: clamp(3rem, 8vw, 6rem);
+		margin: 2rem 0;
 	}
 	.page-subtitle {
 		font-size: 1.5rem;
 		font-weight: 500;
+		max-width: 600px;
+		opacity: 0.8;
 	}
 </style>

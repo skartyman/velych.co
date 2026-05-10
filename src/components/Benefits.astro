@@ -20,11 +20,12 @@ const benefits = [
 ---
 <section class="benefits">
 	<div class="container">
-		<div class="grid">
+		<div class="benefits__grid">
 			{benefits.map(benefit => (
-				<div class="card">
-					<h3 class="card__title">{benefit.title}</h3>
-					<p class="card__text">{benefit.text}</p>
+				<div class="brutal-card benefit-card">
+					<div class="benefit-card__icon lime-dot"></div>
+					<h3 class="benefit-card__title">{benefit.title}</h3>
+					<p class="benefit-card__text">{benefit.text}</p>
 				</div>
 			))}
 		</div>
@@ -32,40 +33,27 @@ const benefits = [
 </section>
 
 <style>
-	.grid {
+	.benefits__grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 2rem;
 	}
 
-	.card {
-		padding: 2.5rem;
-		border: var(--border-width) solid var(--color-black);
-		background-color: var(--color-white);
+	.benefit-card {
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+		min-height: 250px;
 	}
 
-	.card:hover {
-		background-color: var(--color-lime);
-		box-shadow: 8px 8px 0px var(--color-black);
-		transform: translate(-4px, -4px);
-	}
-
-	.card__title {
-		font-size: 1.5rem;
+	.benefit-card__title {
+		font-size: 1.8rem;
 		line-height: 1.1;
 	}
 
-	.card__text {
+	.benefit-card__text {
 		font-size: 1.1rem;
 		font-weight: 500;
-	}
-
-	@media (max-width: 768px) {
-		.grid {
-			grid-template-columns: 1fr;
-		}
+		opacity: 0.8;
 	}
 </style>

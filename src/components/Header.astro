@@ -1,8 +1,14 @@
 ---
+import Logo from './Logo.astro';
 ---
 <header class="header">
 	<div class="container header__inner">
-		<a href="/" class="logo">// VELYCH.CO</a>
+		<div class="header__left">
+			<a href="/" class="header__logo">
+				<Logo variant="light" />
+			</a>
+			<span class="header__descriptor">веб-розробка з характером</span>
+		</div>
 		
 		<nav class="nav">
 			<ul class="nav__list">
@@ -13,8 +19,8 @@
 			</ul>
 		</nav>
 
-		<div class="header__actions">
-			<a href="#form" class="btn btn-sm btn-discuss">Обговорити</a>
+		<div class="header__right">
+			<a href="#form" class="btn btn-sm btn-discuss">Обговорити проєкт →</a>
 			<button class="burger" aria-label="Menu">
 				<span></span>
 				<span></span>
@@ -26,12 +32,12 @@
 
 <style>
 	.header {
-		border-bottom: var(--border-width) solid var(--color-black);
-		padding: 1.5rem 0;
+		padding: 1rem 0;
 		background-color: var(--color-milk);
 		position: sticky;
 		top: 0;
 		z-index: 1000;
+		border-bottom: var(--border-width) solid rgba(0,0,0,0.1);
 	}
 
 	.header__inner {
@@ -40,59 +46,70 @@
 		align-items: center;
 	}
 
-	.logo {
-		font-size: 1.5rem;
-		font-weight: 800;
-		letter-spacing: -0.05em;
+	.header__left {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.header__descriptor {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		opacity: 0.5;
+		letter-spacing: 0.05em;
+		max-width: 100px;
+		line-height: 1.1;
 	}
 
 	.nav__list {
 		display: flex;
 		list-style: none;
-		gap: 2rem;
+		gap: 2.5rem;
 	}
 
 	.nav__list a {
-		font-weight: 600;
+		font-weight: 700;
 		text-transform: uppercase;
-		font-size: 0.9rem;
+		font-size: 0.85rem;
+		letter-spacing: 0.02em;
 	}
 
 	.nav__list a:hover {
 		color: var(--color-lime);
-		-webkit-text-stroke: 1px var(--color-black);
+		-webkit-text-stroke: 0.5px var(--color-black);
 	}
 
-	.header__actions {
+	.header__right {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
+		gap: 1.5rem;
 	}
 
 	.btn-sm {
-		padding: 0.5rem 1rem;
-		font-size: 0.8rem;
+		padding: 0.6rem 1.2rem;
+		font-size: 0.75rem;
 	}
 
 	.burger {
 		display: none;
 		flex-direction: column;
-		gap: 6px;
+		gap: 5px;
 		background: none;
 		border: none;
 		cursor: pointer;
-		padding: 4px;
+		padding: 5px;
 	}
 
 	.burger span {
 		display: block;
-		width: 25px;
-		height: 3px;
+		width: 24px;
+		height: 2px;
 		background-color: var(--color-black);
 	}
 
 	@media (max-width: 1024px) {
-		.nav {
+		.nav, .header__descriptor {
 			display: none;
 		}
 		
@@ -103,8 +120,7 @@
 
 	@media (max-width: 480px) {
 		.btn-discuss {
-			padding: 0.4rem 0.8rem;
-			font-size: 0.7rem;
+			display: none;
 		}
 	}
 </style>

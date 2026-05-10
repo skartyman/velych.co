@@ -2,9 +2,9 @@ import type { APIRoute } from 'astro';
 import { sendTelegramLead } from '../../lib/telegram';
 import { createLeadAiSummary } from '../../lib/aiLeadSummary';
 // @ts-ignore
-import { env as cfEnv } from 'cloudflare:workers';
+import { env } from 'cloudflare:workers';
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
     const { name, contact, need, message, company } = data;
@@ -23,23 +23,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return new Response(JSON.stringify({ ok: false, message: "Message too short" }), { status: 400 });
     }
 
-    // 3. Environment Variables
-    const runtime = (locals as any).runtime;
-    const env = runtime?.env || cfEnv || (import.meta as any).env || process?.env;
-
-    const TG_TOKEN = env?.TELEGRAM_BOT_TOKEN;
-    const TG_CHAT_ID = env?.TELEGRAM_CHAT_ID;
+    // 3. Environment Variables (Astro v6 + Cloudflare)
+    // Using the explicitly required 'cloudflare:workers' env
+    const TG_TOKEN = env?.TELEGRAM_BOT_TOKEN || (process as any)?.env?.TELEGRAM_BOT_TOKEN;
+    const TG_CHAT_ID = env?.TELEGRAM_CHAT_ID || (process as any)?.env?.TELEGRAM_CHAT_ID;
 
     if (!TG_TOKEN || !TG_CHAT_ID) {
       return new Response(JSON.stringify({
         ok: false,
         message: "Telegram configuration is missing",
+        debug: { hasEnv: !!env, hasToken: !!TG_TOKEN, hasChatId: !!TG_CHAT_ID }
       }), { status: 500 });
     }
 
     // 4. AI Summary (Optional)
     let aiSummary = null;
     try {
+      // Pass the cloudflare:workers env object directly
       aiSummary = await createLeadAiSummary(env, { name, contact, need, message });
     } catch (aiError) {
       console.error("AI Summary generation failed:", aiError);

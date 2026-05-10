@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { sendTelegramLead } from '../../lib/telegram';
+// @ts-ignore
+import { env } from 'cloudflare:workers';
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
@@ -16,19 +18,24 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return new Response(JSON.stringify({ ok: false, message: "Missing mandatory fields" }), { status: 400 });
     }
 
-    // 3. Environment Variables (Cloudflare Pages / Workers)
-    // In Astro + Cloudflare, env vars are in locals.runtime.env
-    const runtime = (locals as any).runtime;
-    
-    // Support for different adapter versions / local dev
-    const TG_TOKEN = runtime?.env?.TELEGRAM_BOT_TOKEN || process?.env?.TELEGRAM_BOT_TOKEN;
-    const TG_CHAT_ID = runtime?.env?.TELEGRAM_CHAT_ID || process?.env?.TELEGRAM_CHAT_ID;
+    // 3. Environment Variables (Astro v6 + Cloudflare)
+    // Using the recommended way for Astro v6 / Cloudflare Workers
+    let TG_TOKEN = env?.TELEGRAM_BOT_TOKEN;
+    let TG_CHAT_ID = env?.TELEGRAM_CHAT_ID;
+
+    // Fallback for local development
+    TG_TOKEN = TG_TOKEN || (import.meta as any).env?.TELEGRAM_BOT_TOKEN || (process as any)?.env?.TELEGRAM_BOT_TOKEN;
+    TG_CHAT_ID = TG_CHAT_ID || (import.meta as any).env?.TELEGRAM_CHAT_ID || (process as any)?.env?.TELEGRAM_CHAT_ID;
 
     if (!TG_TOKEN || !TG_CHAT_ID) {
       return new Response(JSON.stringify({
         ok: false,
-        message: "Telegram configuration is missing in environment",
-        debug: { hasToken: !!TG_TOKEN, hasChatId: !!TG_CHAT_ID }
+        message: "Telegram configuration is missing",
+        debug: { 
+            hasEnv: !!env,
+            hasToken: !!TG_TOKEN, 
+            hasChatId: !!TG_CHAT_ID 
+        }
       }), { status: 500 });
     }
 

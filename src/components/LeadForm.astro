@@ -6,6 +6,12 @@
 			<h2 class="section-title">Обговорити проєкт</h2>
 			
 			<form class="form" id="contact-form">
+				<!-- Honeypot -->
+				<div class="hp-field">
+					<label for="honeypot">Leave this blank</label>
+					<input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off" />
+				</div>
+
 				<div class="form__group">
 					<label for="name">Ім’я</label>
 					<input type="text" id="name" name="name" placeholder="Як вас звати?" required />
@@ -18,7 +24,8 @@
 				
 				<div class="form__group">
 					<label for="type">Що потрібно?</label>
-					<select id="type" name="type">
+					<select id="type" name="type" required>
+						<option value="" disabled selected>Оберіть варіант</option>
 						<option value="site">Веб-сайт</option>
 						<option value="bot">Telegram-бот</option>
 						<option value="crm">CRM / Адмін-панель</option>
@@ -29,16 +36,17 @@
 				
 				<div class="form__group">
 					<label for="message">Опис задачі</label>
-					<textarea id="message" name="message" rows="4" placeholder="Розкажіть коротко про ваш проєкт"></textarea>
+					<textarea id="message" name="message" rows="4" placeholder="Розкажіть коротко про ваш проєкт (мін. 5 символів)" required minlength="5"></textarea>
 				</div>
 				
-				<button type="submit" class="btn btn-primary">Відправити запит</button>
+				<button type="submit" class="btn btn-primary" id="submit-btn">Відправити запит</button>
+				<p class="error-msg" id="form-error"></p>
 			</form>
 			
-			<div class="form-success" id="form-success">
+			<div class="form-success" id="form-success" style="display: none;">
 				<h3>Дякуємо. Заявку підготовлено.</h3>
-				<p>На наступному етапі підключимо Telegram та AI-обробку.</p>
-				<button class="btn" id="form-reset">Зрозумів</button>
+				<p>Ми зв’яжемося з вами найближчим часом. На наступному етапі підключимо Telegram та AI-обробку.</p>
+				<button class="btn" id="form-reset">Відправити ще один запит</button>
 			</div>
 		</div>
 	</div>
@@ -48,17 +56,50 @@
 	const form = document.getElementById('contact-form') as HTMLFormElement;
 	const success = document.getElementById('form-success');
 	const reset = document.getElementById('form-reset');
+	const errorMsg = document.getElementById('form-error');
+	const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
 
-	form?.addEventListener('submit', (e) => {
+	form?.addEventListener('submit', async (e) => {
 		e.preventDefault();
-		form.style.display = 'none';
-		if (success) success.style.display = 'block';
+		if (errorMsg) errorMsg.innerText = '';
+		if (submitBtn) submitBtn.disabled = true;
+
+		const formData = new FormData(form);
+		const data = {
+			name: formData.get('name'),
+			contact: formData.get('contact'),
+			need: formData.get('type'),
+			message: formData.get('message'),
+			honeypot: formData.get('honeypot')
+		};
+
+		try {
+			const response = await fetch('/api/lead', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
+			});
+
+			const result = await response.json();
+
+			if (response.ok && result.ok) {
+				form.style.display = 'none';
+				if (success) success.style.display = 'block';
+			} else {
+				if (errorMsg) errorMsg.innerText = result.message || 'Сталася помилка. Спробуйте пізніше.';
+				if (submitBtn) submitBtn.disabled = false;
+			}
+		} catch (error) {
+			if (errorMsg) errorMsg.innerText = 'Помилка мережі. Перевірте з’єднання.';
+			if (submitBtn) submitBtn.disabled = false;
+		}
 	});
 
 	reset?.addEventListener('click', () => {
 		if (success) success.style.display = 'none';
 		form.style.display = 'flex';
 		form.reset();
+		if (submitBtn) submitBtn.disabled = false;
 	});
 </script>
 
@@ -69,6 +110,10 @@
 		border: var(--border-width) solid var(--color-black);
 		padding: 4rem;
 		background-color: var(--color-white);
+	}
+
+	.hp-field {
+		display: none;
 	}
 
 	.section-title {
@@ -113,8 +158,14 @@
 		box-shadow: 4px 4px 0px var(--color-lime);
 	}
 
+	.error-msg {
+		color: red;
+		font-weight: 700;
+		margin-top: 1rem;
+		text-align: center;
+	}
+
 	.form-success {
-		display: none;
 		text-align: center;
 		padding: 2rem 0;
 	}

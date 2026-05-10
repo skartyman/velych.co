@@ -15,13 +15,135 @@ import Footer from '../components/Footer.astro';
 	description="Українська веб-компанія. Робимо сайти, Telegram-боти, CRM та автоматизацію для заявок, клієнтів і процесів."
 >
 	<Header />
+	
 	<main>
 		<Hero />
-		<Benefits />
+
+		<section class="benefits-strip section-dark">
+			<div class="container">
+				<div class="benefits-grid">
+					<div class="benefit-item">
+						<span class="lime-dot"></span>
+						<div class="benefit-content">
+							<h3>БЕЗ ЗАЙВОГО ШУМУ</h3>
+							<p>Говоримо прямо, робимо чітко, здаємо в строк.</p>
+						</div>
+					</div>
+					<div class="benefit-item">
+						<span class="lime-dot"></span>
+						<div class="benefit-content">
+							<h3>САЙТ + БОТ + CRM</h3>
+							<p>Зв'язуємо інструменти в єдину систему.</p>
+						</div>
+					</div>
+					<div class="benefit-item">
+						<span class="lime-dot"></span>
+						<div class="benefit-content">
+							<h3>МЕНШЕ ХАОСУ</h3>
+							<p>Автоматизуємо рутину, наводимо порядок.</p>
+						</div>
+					</div>
+					<div class="benefit-item">
+						<span class="lime-dot"></span>
+						<div class="benefit-content">
+							<h3>ПІДТРИМКА ПО ДІЛУ</h3>
+							<p>Допомагаємо розвивати те, що працює.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<Services />
 		<Difference />
 		<Process />
+
+		<section class="bottom-cta section-dark">
+			<div class="container">
+				<div class="cta-box corner-bracket">
+					<h2 class="cta-title">ХОЧЕТЕ ТАК САМО?<br/><span class="bg-lime text-dark">ОБГОВОРИМО ВАШ ПРОЄКТ.</span></h2>
+					<p class="cta-subtitle">Без зобов'язань. Просто розмова про те, як ми можемо бути корисні.</p>
+					<div class="cta-actions">
+						<a href="/kontakty#form" class="btn btn-primary">ОБГОВОРИТИ ПРОЄКТ <span class="arrow">→</span></a>
+						<a href="https://t.me/velych_co" class="btn btn-dark">НАПИСАТИ У TELEGRAM</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<LeadForm />
 	</main>
+
 	<Footer />
 </BaseLayout>
+
+<style>
+	.benefits-strip {
+		padding: 3rem 0;
+		border-top: 1px solid rgba(255,255,255,0.1);
+	}
+
+	.benefits-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 2rem;
+	}
+
+	.benefit-item {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+	}
+
+	.benefit-content h3 {
+		font-size: 0.9rem;
+		margin-bottom: 0.4rem;
+		letter-spacing: 0.05em;
+	}
+
+	.benefit-content p {
+		font-size: 0.8rem;
+		opacity: 0.6;
+		font-weight: 500;
+	}
+
+	.bottom-cta {
+		padding: 10rem 0;
+		text-align: center;
+	}
+
+	.cta-box {
+		padding: 6rem 2rem;
+		background-color: #0c0c0c;
+	}
+
+	.cta-title {
+		font-size: clamp(2rem, 6vw, 4.5rem);
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-subtitle {
+		font-size: 1.2rem;
+		opacity: 0.6;
+		margin-bottom: 4rem;
+	}
+
+	.cta-actions {
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+	}
+
+	.text-dark {
+		color: var(--color-black);
+	}
+
+	@media (max-width: 768px) {
+		.cta-actions {
+			flex-direction: column;
+		}
+		.cta-box {
+			padding: 4rem 1.5rem;
+		}
+	}
+</style>

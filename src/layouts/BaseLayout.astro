@@ -25,7 +25,7 @@ const { title, description = "Українська веб-компанія. Ро
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<div class="noise-overlay"></div>
@@ -36,14 +36,13 @@ const { title, description = "Українська веб-компанія. Ро
 		</button>
 
 		<script>
-			// Sticky CTA click handler
 			const stickyCta = document.getElementById('sticky-cta');
 			stickyCta?.addEventListener('click', () => {
 				const formElement = document.getElementById('form');
 				if (formElement) {
 					formElement.scrollIntoView({ behavior: 'smooth' });
 				} else {
-					window.location.href = '/#form';
+					window.location.href = '/kontakty#form';
 				}
 			});
 		</script>
@@ -57,7 +56,7 @@ const { title, description = "Українська веб-компанія. Ро
 				--color-dark: #070707;
 				--font-main: 'Space Grotesk', sans-serif;
 				--border-width: 1px;
-				--transition: 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+				--transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 			}
 
 			* {
@@ -74,7 +73,7 @@ const { title, description = "Українська веб-компанія. Ро
 				background-color: var(--color-milk);
 				color: var(--color-black);
 				font-family: var(--font-main);
-				line-height: 1.4;
+				line-height: 1.3;
 				overflow-x: hidden;
 				-webkit-font-smoothing: antialiased;
 			}
@@ -86,8 +85,12 @@ const { title, description = "Українська веб-компанія. Ро
 			h1, h2, h3, h4, h5, h6 {
 				text-transform: uppercase;
 				font-weight: 800;
-				letter-spacing: -0.04em;
-				line-height: 0.9;
+				letter-spacing: -0.05em;
+				line-height: 0.85;
+			}
+
+			p {
+				line-height: 1.5;
 			}
 
 			a {
@@ -120,45 +123,36 @@ const { title, description = "Українська веб-компанія. Ро
 				}
 			}
 
-			/* Utility Classes */
+			/* Brutal UI Utility Classes */
 			.section-dark {
 				background-color: var(--color-dark);
 				color: var(--color-white);
-				position: relative;
-			}
-
-			.section-dark .noise-overlay {
-				opacity: 0.08;
 			}
 
 			.btn {
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
-				padding: 1.2rem 2.5rem;
+				padding: 1rem 1.8rem;
 				font-weight: 800;
 				text-transform: uppercase;
 				border: var(--border-width) solid var(--color-black);
 				background-color: var(--color-white);
 				cursor: pointer;
-				font-size: 1rem;
-				letter-spacing: 0.02em;
+				font-size: 0.9rem;
+				letter-spacing: 0.05em;
 				gap: 0.8rem;
+				transition: var(--transition);
 			}
 
 			.btn:hover {
 				background-color: var(--color-lime);
-				transform: translate(-4px, -4px);
+				transform: translate(-2px, -2px);
 				box-shadow: 4px 4px 0px var(--color-black);
 			}
 
 			.btn-primary {
 				background-color: var(--color-lime);
-				box-shadow: 4px 4px 0px var(--color-black);
-			}
-
-			.btn-primary:hover {
-				background-color: var(--color-white);
 			}
 
 			.btn-dark {
@@ -180,12 +174,6 @@ const { title, description = "Українська веб-компанія. Ро
 				transition: var(--transition);
 			}
 
-			.brutal-card:hover {
-				background-color: var(--color-lime);
-				transform: translate(-4px, -4px);
-				box-shadow: 4px 4px 0px var(--color-black);
-			}
-
 			.corner-bracket {
 				position: relative;
 			}
@@ -193,79 +181,42 @@ const { title, description = "Українська веб-компанія. Ро
 			.corner-bracket::before, .corner-bracket::after {
 				content: '';
 				position: absolute;
-				width: 20px;
-				height: 20px;
-				border: 2px solid var(--color-lime);
+				width: 15px;
+				height: 15px;
+				border: 1px solid var(--color-black);
+				opacity: 0.3;
 			}
 
-			.corner-bracket::before {
-				top: -10px;
-				left: -10px;
-				border-right: 0;
-				border-bottom: 0;
-			}
-
-			.corner-bracket::after {
-				bottom: -10px;
-				right: -10px;
-				border-left: 0;
-				border-top: 0;
-			}
-
-			.crosshair {
-				position: relative;
-			}
-
-			.crosshair::before, .crosshair::after {
-				content: '';
-				position: absolute;
-				background-color: var(--color-lime);
-				opacity: 0.5;
-			}
-
-			.crosshair::before {
-				top: 50%;
-				left: -20px;
-				right: -20px;
-				height: 1px;
-			}
-
-			.crosshair::after {
-				left: 50%;
-				top: -20px;
-				bottom: -20px;
-				width: 1px;
-			}
-
-			.section-divider {
-				height: var(--border-width);
-				background-color: var(--color-black);
-				width: 100%;
-				opacity: 0.1;
-			}
+			.corner-bracket::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+			.corner-bracket::after { bottom: 0; right: 0; border-left: 0; border-top: 0; }
 
 			.outline-badge {
 				display: inline-block;
-				border: 1px solid currentColor;
-				padding: 0.3rem 0.8rem;
-				border-radius: 20px;
-				font-size: 0.8rem;
-				font-weight: 700;
+				border: 1px solid var(--color-black);
+				padding: 0.4rem 1rem;
+				border-radius: 50px;
+				font-size: 0.75rem;
+				font-weight: 800;
 				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				margin-bottom: 1.5rem;
+			}
+
+			.section-dark .outline-badge {
+				border-color: rgba(255,255,255,0.3);
 			}
 
 			.lime-dot {
 				display: inline-block;
-				width: 8px;
-				height: 8px;
+				width: 10px;
+				height: 10px;
 				background-color: var(--color-lime);
 				border-radius: 50%;
-				margin-right: 0.5rem;
 			}
 
 			section {
-				padding: 8rem 0;
-				border-bottom: var(--border-width) solid rgba(0,0,0,0.1);
+				padding: 6rem 0;
+				border-bottom: var(--border-width) solid rgba(0,0,0,0.08);
 			}
 
 			.mobile-cta-sticky {
@@ -281,14 +232,25 @@ const { title, description = "Українська веб-компанія. Ро
 
 			@media (max-width: 768px) {
 				section {
-					padding: 5rem 0;
+					padding: 4rem 0;
 				}
 				.mobile-cta-sticky {
 					display: flex;
 				}
-				.btn {
-					width: 100%;
-				}
+			}
+
+			/* Typography helpers */
+			.text-stroke {
+				color: transparent;
+				-webkit-text-stroke: 1px var(--color-black);
+			}
+			.section-dark .text-stroke {
+				-webkit-text-stroke: 1px var(--color-white);
+			}
+
+			.bg-lime {
+				background-color: var(--color-lime);
+				padding: 0 0.1em;
 			}
 		</style>
 	</body>

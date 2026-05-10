@@ -1,143 +1,347 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import Process from '../components/Process.astro';
+import Icon from '../components/Icon.astro';
 import Footer from '../components/Footer.astro';
+
+const steps = [
+	{ num: "1.", id: "diagnostics", title: "ДІАГНОСТИКА", desc: "Розбираємось у задачі, цілях і контексті. Ставимо правильні питання.", icon: "diagnostics" },
+	{ num: "2.", id: "structure", title: "СТРУКТУРА", desc: "Проєктуємо логіку, функціонал і архітектуру. Без зайвого, тільки те, що потрібно.", icon: "structure" },
+	{ num: "3.", id: "prototype", title: "ПРОТОТИП", desc: "Збираємо прототип, щоб перевірити гіпотези й узгодити важливе до дизайну та коду.", icon: "landing" },
+	{ num: "4.", id: "design", title: "ДИЗАЙН", desc: "Робимо чистий, чесний дизайн, який працює на користувача і бізнес.", icon: "design" },
+	{ num: "5.", id: "development", title: "РОЗРОБКА", desc: "Пишемо чистий код, інтегруємо, тестуємо. Без костилів і сюрпризів.", icon: "automation" },
+	{ num: "6.", id: "launch", title: "ЗАПУСК І ПІДТРИМКА", desc: "Запускаємо, моніторимо та покращуємо. Не зникаємо після передачі проєкту.", icon: "launch" }
+];
+
+const comparison = [
+	{ old: "Довгі брифінги і розмиті цілі", new: "Коротка діагностика і чіткі цілі" },
+	{ old: "Обіцяють багато, результат — потім", new: "Обіцяємо тільки те, що зробимо" },
+	{ old: "Немає прозорості в процесі", new: "Ви в курсі на кожному етапі" },
+	{ old: "Зникають після запуску", new: "Підтримка і розвиток після релізу" },
+	{ old: "Роблять «як у всіх»", new: "Рішення під задачу, а не по шаблону" }
+];
 ---
 
 <BaseLayout title="Підхід — VELYCH.CO">
 	<Header />
+	
 	<main>
 		<section class="page-hero">
-			<div class="container hero-inner">
+			<div class="container hero-grid">
 				<div class="hero-content">
-					<div class="outline-badge">Філософія</div>
-					<h1 class="page-title">Наш підхід</h1>
-					<p class="page-subtitle">Чесно, без води. Спочатку процес та бізнес-логіка, потім дизайн.</p>
+					<h1 class="page-title">ПІДХІД</h1>
+					<p class="hero-subtitle">НОРМАЛЬНИЙ ПРОЦЕС БЕЗ МАГІЇ ТА ТУМАНУ</p>
+					<p class="hero-text">Ми не продаємо повітря. Ми робимо речі, які працюють. Чіткий процес, прозорі домовленості та результат, який можна виміряти.</p>
 				</div>
 				<div class="hero-visual">
 					<div class="cube-wrapper corner-bracket">
-						<img 
-							src="/images/brand/concrete-cube.webp" 
-							alt="VELYCH.CO Concrete Cube" 
-							class="cube-image"
-							width="500"
-							height="625"
-							loading="eager"
-						/>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section class="details section-dark">
-			<div class="container">
-				<div class="approach-grid">
-					<div class="brutal-card card-dark">
-						<span class="lime-dot"></span>
-						<h3>Нічого зайвого</h3>
-						<p>Ми не продаємо години розробки чи складні терміни. Ми вирішуємо бізнес-задачу за допомогою коду.</p>
-					</div>
-					<div class="brutal-card card-dark">
-						<span class="lime-dot"></span>
-						<h3>Прозорість</h3>
-						<p>Ви завжди знаєте, на якому етапі проєкт. Ніяких сюрпризів за день до релізу.</p>
+						<img src="/images/brand/concrete-cube.webp" alt="Cube" class="hero-cube" />
+						<div class="cube-label">// 02</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<Process />
+		<section class="process-steps">
+			<div class="container">
+				<div class="steps-grid">
+					{steps.map(step => (
+						<div class="step-card">
+							<div class="step-header">
+								<span class="step-num">{step.num}</span>
+								<Icon name={step.icon as any} className="step-icon" />
+								<span class="step-arrow">→</span>
+							</div>
+							<h3 class="step-title">{step.title}</h3>
+							<p class="step-desc">{step.desc}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="approach-benefits section-dark">
+			<div class="container">
+				<div class="benefits-row">
+					<div class="b-card">
+						<Icon name="support" />
+						<h4>ГОВОРИМО ПРЯМО</h4>
+						<p>Без води, без обіцянок золотих гір. Кажемо як є і радимо чесно.</p>
+					</div>
+					<div class="b-card">
+						<Icon name="diagnostics" />
+						<h4>ФІКСУЄМО СТРОКИ</h4>
+						<p>Домовились — робимо. План, дедлайни і відповідальність.</p>
+					</div>
+					<div class="b-card">
+						<Icon name="structure" />
+						<h4>ПОКАЗУЄМО ПРОЦЕС</h4>
+						<p>Ви бачите, на якому етапі ми, і що відбувається у проєкті.</p>
+					</div>
+					<div class="b-card">
+						<Icon name="launch" />
+						<h4>НЕ ЗНИКАЄМО</h4>
+						<p>Підтримуємо, розвиваємо і допомагаємо рости.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="difference-table-section">
+			<div class="container">
+				<div class="table-header-block">
+					<h2 class="table-title">У ЧОМУ РІЗНИЦЯ</h2>
+					<div class="table-note corner-bracket">НАМ ПОТРІБЕН РЕЗУЛЬТАТ, А НЕ КАРТИНКА.</div>
+				</div>
+
+				<div class="diff-table">
+					<div class="t-head">
+						<div class="t-col">ТИПОВА СТУДІЯ</div>
+						<div class="t-col">VELYCH.CO</div>
+					</div>
+					{comparison.map(row => (
+						<div class="t-row">
+							<div class="t-cell t-cell--old">{row.old}</div>
+							<div class="t-cell t-cell--arrow">→</div>
+							<div class="t-cell t-cell--new">{row.new}</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="final-cta section-dark">
+			<div class="container">
+				<div class="cta-banner corner-bracket">
+					<h2>ПОТРІБЕН САЙТ, БОТ ЧИ СИСТЕМА?<br/><span class="text-lime">ПОЧНЕМО З ДІАГНОСТИКИ.</span></h2>
+					<p>Оцінимо задачу, запропонуємо рішення та чесно скажемо, як краще зробити.</p>
+					<a href="/kontakty#form" class="btn btn-primary">ОБГОВОРИТИ ПРОЄКТ <span class="arrow">→</span></a>
+				</div>
+			</div>
+		</section>
 	</main>
+
 	<Footer />
 </BaseLayout>
 
 <style>
 	.page-hero {
-		padding: 8rem 0;
-		min-height: 70vh;
-		display: flex;
-		align-items: center;
+		padding: 6rem 0;
 	}
 
-	.hero-inner {
+	.hero-grid {
 		display: grid;
 		grid-template-columns: 1.2fr 0.8fr;
-		gap: 4rem;
 		align-items: center;
+		gap: 4rem;
 	}
 
 	.page-title {
-		font-size: clamp(3rem, 8vw, 6rem);
-		margin: 2rem 0;
+		font-size: clamp(4rem, 12vw, 8.5rem);
+		margin-bottom: 1.5rem;
 	}
 
-	.page-subtitle {
-		font-size: 1.5rem;
-		font-weight: 500;
-		max-width: 600px;
+	.hero-subtitle {
+		font-size: 1.2rem;
+		font-weight: 800;
+		margin-bottom: 1.5rem;
 		opacity: 0.8;
+	}
+
+	.hero-text {
+		font-size: 1.1rem;
+		max-width: 500px;
+		opacity: 0.6;
 	}
 
 	.hero-visual {
 		display: flex;
 		justify-content: flex-end;
-	}
-
-	.cube-wrapper {
 		position: relative;
-		display: inline-block;
 	}
 
-	.cube-image {
+	.hero-cube {
 		max-width: 100%;
-		height: auto;
-		display: block;
-		filter: grayscale(1);
 		mix-blend-mode: multiply;
+		filter: grayscale(1);
 	}
 
-	.approach-grid {
+	.cube-label {
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-weight: 800;
+		opacity: 0.3;
+	}
+
+	.steps-grid {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		border: 1px solid rgba(0,0,0,0.1);
+	}
+
+	.step-card {
+		padding: 3rem;
+		border: 0.5px solid rgba(0,0,0,0.05);
+		transition: var(--transition);
+	}
+
+	.step-card:hover {
+		background-color: var(--color-white);
+		box-shadow: inset 0 0 0 1px var(--color-black);
+	}
+
+	.step-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 2rem;
+	}
+
+	.step-num {
+		font-size: 1.5rem;
+		font-weight: 800;
+	}
+
+	.step-icon {
+		font-size: 2.5rem;
+	}
+
+	.step-arrow {
+		opacity: 0.2;
+		font-size: 1.5rem;
+	}
+
+	.step-title {
+		font-size: 1.2rem;
+		margin-bottom: 1rem;
+		letter-spacing: 0.05em;
+	}
+
+	.step-desc {
+		font-size: 0.9rem;
+		opacity: 0.7;
+	}
+
+	.approach-benefits {
+		padding: 4rem 0;
+	}
+
+	.benefits-row {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 		gap: 2rem;
 	}
 
-	.card-dark {
+	.b-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.b-card h4 {
+		font-size: 0.9rem;
+		letter-spacing: 0.05em;
+	}
+
+	.b-card p {
+		font-size: 0.85rem;
+		opacity: 0.6;
+	}
+
+	.table-header-block {
+		padding: 6rem 0 3rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+	}
+
+	.table-title {
+		font-size: clamp(3rem, 8vw, 6rem);
+	}
+
+	.table-note {
+		padding: 1rem;
+		font-size: 0.8rem;
+		font-weight: 800;
+		max-width: 200px;
+		line-height: 1.1;
+		opacity: 0.6;
+	}
+
+	.diff-table {
+		border: 1px solid var(--color-black);
+		margin-bottom: 6rem;
+	}
+
+	.t-head {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		background-color: var(--color-black);
 		color: var(--color-white);
-		border-color: rgba(255,255,255,0.1);
 	}
 
-	.card-dark h3 {
-		font-size: 1.8rem;
-		margin-bottom: 1.5rem;
-		color: var(--color-lime);
+	.t-col {
+		padding: 1.2rem 2rem;
+		font-weight: 800;
+		font-size: 0.9rem;
 	}
 
-	.card-dark p {
-		font-size: 1.1rem;
-		opacity: 0.8;
-		line-height: 1.6;
+	.t-col:last-child {
+		background-color: var(--color-lime);
+		color: var(--color-black);
 	}
+
+	.t-row {
+		display: grid;
+		grid-template-columns: 1fr 50px 1fr;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+	}
+
+	.t-cell {
+		padding: 1.5rem 2rem;
+		font-size: 1rem;
+		font-weight: 600;
+		display: flex;
+		align-items: center;
+	}
+
+	.t-cell--old { opacity: 0.5; }
+	.t-cell--arrow { justify-content: center; color: var(--color-lime); font-weight: 900; }
+	.t-cell--new { background-color: rgba(200, 255, 0, 0.02); }
+
+	.final-cta {
+		padding: 10rem 0;
+		text-align: left;
+	}
+
+	.cta-banner {
+		padding: 6rem;
+		background-color: #0c0c0c;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		align-items: flex-start;
+	}
+
+	.cta-banner h2 {
+		font-size: clamp(2rem, 6vw, 4rem);
+	}
+
+	.text-lime { color: var(--color-lime); }
 
 	@media (max-width: 1024px) {
-		.hero-inner {
-			grid-template-columns: 1fr;
-			gap: 4rem;
-		}
-		.hero-visual {
-			justify-content: flex-start;
-			max-width: 300px;
-		}
+		.hero-grid { grid-template-columns: 1fr; }
+		.hero-visual { justify-content: center; margin: 0 auto; max-width: 300px; }
+		.table-header-block { flex-direction: column; align-items: flex-start; gap: 2rem; }
 	}
 
 	@media (max-width: 768px) {
-		.page-hero {
-			padding: 6rem 0 4rem;
-		}
-		.approach-grid {
-			grid-template-columns: 1fr;
-		}
+		.t-head { display: none; }
+		.t-row { grid-template-columns: 1fr; padding: 1.5rem; gap: 0.5rem; }
+		.t-cell { padding: 0; }
+		.t-cell--arrow { display: none; }
+		.t-cell--new { background-color: var(--color-lime); padding: 0.8rem; color: var(--color-black); }
+		.cta-banner { padding: 3rem 1.5rem; }
 	}
 </style>

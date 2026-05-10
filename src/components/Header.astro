@@ -3,24 +3,27 @@ import Logo from './Logo.astro';
 ---
 <header class="header">
 	<div class="container header__inner">
-		<div class="header__left">
+		<div class="header__brand">
 			<a href="/" class="header__logo">
 				<Logo variant="light" />
 			</a>
-			<span class="header__descriptor">веб-розробка з характером</span>
+			<div class="header__descriptor">
+				ВЕБ-РОЗРОБКА З ХАРАКТЕРОМ
+			</div>
 		</div>
 		
 		<nav class="nav" id="mobile-menu">
 			<ul class="nav__list">
-				<li><a href="/posluhy">Послуги</a></li>
-				<li><a href="/proiekty">Проєкти</a></li>
-				<li><a href="/pidkhid">Підхід</a></li>
-				<li><a href="/kontakty">Контакти</a></li>
+				<li><a href="/posluhy">ПОСЛУГИ</a></li>
+				<li><a href="/proiekty">ПРОЄКТИ</a></li>
+				<li><a href="/pidkhid">ПІДХІД</a></li>
+				<li><a href="/pro-nas">ПРО НАС</a></li>
+				<li><a href="/kontakty">КОНТАКТИ</a></li>
 			</ul>
 		</nav>
 
-		<div class="header__right">
-			<a href="#form" class="btn btn-sm btn-discuss">Обговорити проєкт →</a>
+		<div class="header__actions">
+			<a href="/kontakty#form" class="btn btn-sm btn-outline btn-discuss">ОБГОВОРИТИ ПРОЄКТ <span class="arrow">→</span></a>
 			<button class="burger" id="burger-btn" aria-label="Menu">
 				<span></span>
 				<span></span>
@@ -41,7 +44,7 @@ import Logo from './Logo.astro';
 		body.classList.toggle('menu-open');
 	});
 
-	// Close menu when link is clicked
+	// Close menu on link click
 	const navLinks = document.querySelectorAll('.nav__list a');
 	navLinks.forEach(link => {
 		link.addEventListener('click', () => {
@@ -54,12 +57,12 @@ import Logo from './Logo.astro';
 
 <style>
 	.header {
-		padding: 1rem 0;
+		padding: 1.5rem 0;
 		background-color: var(--color-milk);
 		position: sticky;
 		top: 0;
 		z-index: 1000;
-		border-bottom: var(--border-width) solid rgba(0,0,0,0.1);
+		border-bottom: 1px solid rgba(0,0,0,0.05);
 	}
 
 	.header__inner {
@@ -68,20 +71,19 @@ import Logo from './Logo.astro';
 		align-items: center;
 	}
 
-	.header__left {
+	.header__brand {
 		display: flex;
 		align-items: center;
 		gap: 1.5rem;
 	}
 
 	.header__descriptor {
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		font-weight: 700;
+		font-size: 0.7rem;
+		font-weight: 800;
+		max-width: 80px;
+		line-height: 1.1;
 		opacity: 0.5;
 		letter-spacing: 0.05em;
-		max-width: 100px;
-		line-height: 1.1;
 	}
 
 	.nav__list {
@@ -91,10 +93,10 @@ import Logo from './Logo.astro';
 	}
 
 	.nav__list a {
-		font-weight: 700;
-		text-transform: uppercase;
+		font-weight: 800;
 		font-size: 0.85rem;
-		letter-spacing: 0.02em;
+		letter-spacing: 0.05em;
+		transition: var(--transition);
 	}
 
 	.nav__list a:hover {
@@ -102,21 +104,27 @@ import Logo from './Logo.astro';
 		-webkit-text-stroke: 0.5px var(--color-black);
 	}
 
-	.header__right {
+	.header__actions {
 		display: flex;
 		align-items: center;
-		gap: 1.5rem;
+		gap: 1rem;
 	}
 
 	.btn-sm {
 		padding: 0.6rem 1.2rem;
 		font-size: 0.75rem;
+		border: 1.5px solid var(--color-black);
+	}
+
+	.arrow {
+		margin-left: 0.5rem;
+		font-size: 1rem;
 	}
 
 	.burger {
 		display: none;
 		flex-direction: column;
-		gap: 5px;
+		gap: 6px;
 		background: none;
 		border: none;
 		cursor: pointer;
@@ -127,61 +135,58 @@ import Logo from './Logo.astro';
 
 	.burger span {
 		display: block;
-		width: 24px;
+		width: 28px;
 		height: 2px;
 		background-color: var(--color-black);
 		transition: var(--transition);
 	}
 
-	.burger.active span:nth-child(1) {
-		transform: translateY(7px) rotate(45deg);
-	}
-	.burger.active span:nth-child(2) {
-		opacity: 0;
-	}
-	.burger.active span:nth-child(3) {
-		transform: translateY(-7px) rotate(-45deg);
+	.burger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+	.burger.active span:nth-child(2) { opacity: 0; }
+	.burger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+	@media (max-width: 1100px) {
+		.header__descriptor {
+			display: none;
+		}
 	}
 
 	@media (max-width: 1024px) {
 		.nav {
 			position: fixed;
 			top: 0;
-			right: -100%;
+			left: 0;
 			width: 100%;
 			height: 100vh;
 			background-color: var(--color-milk);
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+			opacity: 0;
+			visibility: hidden;
+			transition: all 0.4s ease;
 			z-index: 1050;
 		}
 
 		.nav.active {
-			right: 0;
+			opacity: 1;
+			visibility: visible;
 		}
 
 		.nav__list {
 			flex-direction: column;
 			align-items: center;
-			gap: 3rem;
+			gap: 2.5rem;
 		}
 
 		.nav__list a {
-			font-size: 2rem;
-		}
-
-		.header__descriptor {
-			display: none;
+			font-size: 2.5rem;
 		}
 		
 		.burger {
 			display: flex;
 		}
-	}
 
-	@media (max-width: 480px) {
 		.btn-discuss {
 			display: none;
 		}

@@ -1,37 +1,293 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import Services from '../components/Services.astro';
+import Icon from '../components/Icon.astro';
 import Footer from '../components/Footer.astro';
+
+const services = [
+	{
+		title: "ВЕБ-САЙТИ",
+		desc: "Швидкі, надійні та зручні сайти, які працюють на ваш бізнес.",
+		tag: "ВІД 7 ДНІВ",
+		icon: "website"
+	},
+	{
+		title: "ЛЕНДІНГИ",
+		desc: "Конверсійні посадкові сторінки під запуск, рекламу та перевірку гіпотез.",
+		tag: "ВІД 5 ДНІВ",
+		icon: "landing"
+	},
+	{
+		title: "ЧАТ-БОТИ",
+		desc: "Автоматизуємо заявки, відповіді та підтримку в месенджерах.",
+		tag: "ПІД ЗАДАЧУ",
+		icon: "bot"
+	},
+	{
+		title: "CRM ТА АВТОМАТИЗАЦІЯ",
+		desc: "Налаштовуємо системи, які наводять порядок у продажах і процесах.",
+		tag: "ПІД ЗАДАЧУ",
+		icon: "crm"
+	},
+	{
+		title: "PWA",
+		desc: "Сучасні веб-додатки, що працюють швидко, офлайн і як нативні.",
+		tag: "ПІД ЗАДАЧУ",
+		icon: "automation"
+	},
+	{
+		title: "ПІДТРИМКА ТА РОЗВИТОК",
+		desc: "Підтримуємо, оновлюємо та покращуємо ваші продукти без простоїв.",
+		tag: "ДЛЯ БІЗНЕСУ",
+		icon: "support"
+	}
+];
 ---
 
 <BaseLayout title="Послуги — VELYCH.CO">
 	<Header />
+	
 	<main>
-		<section class="page-hero section-dark">
-			<div class="container">
-				<div class="outline-badge">Що ми робимо</div>
-				<h1 class="page-title">Наші Послуги</h1>
-				<p class="page-subtitle">Робимо те, що працює. Без зайвого шуму та складних термінів.</p>
+		<section class="page-hero">
+			<div class="container hero-grid">
+				<div class="hero-content">
+					<nav class="breadcrumbs">ГОЛОВНА / ПОСЛУГИ</nav>
+					<h1 class="page-title">ПОСЛУГИ</h1>
+					<p class="hero-main-text">РОБИМО ТІЛЬКИ ТЕ, ЩО РЕАЛЬНО ДОПОМАГАЄ БІЗНЕСУ ПРАЦЮВАТИ</p>
+					<p class="hero-sub-text">Жодної води, зайвих функцій і складних слів. Тільки рішення, які приносять користь і результат.</p>
+				</div>
+				<div class="hero-visual">
+					<div class="cube-wrapper corner-bracket">
+						<img src="/images/brand/concrete-cube.webp" alt="Cube" class="hero-cube" />
+						<div class="cube-label">// 02</div>
+					</div>
+				</div>
 			</div>
 		</section>
-		<Services />
+
+		<section class="services-grid-section">
+			<div class="container">
+				<div class="services-grid">
+					{services.map(s => (
+						<div class="service-card brutal-card">
+							<div class="card-header">
+								<Icon name={s.icon as any} className="card-icon" />
+							</div>
+							<h3 class="card-title">{s.title}</h3>
+							<p class="card-desc">{s.desc}</p>
+							<div class="card-footer">
+								<span class="card-tag">{s.tag}</span>
+								<span class="card-arrow">→</span>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="benefits-strip section-dark">
+			<div class="container">
+				<div class="benefits-flex">
+					<div class="b-item"><Icon name="diagnostics" /> <span>БЕЗ ЗАЙВОГО ШУМУ</span></div>
+					<div class="b-item"><Icon name="structure" /> <span>БЕЗ ШАБЛОНІВ ЗАРАДИ ШАБЛОНІВ</span></div>
+					<div class="b-item"><Icon name="design" /> <span>ІНТЕГРУЄМО В ПРОЦЕСИ</span></div>
+					<div class="b-item"><Icon name="launch" /> <span>ФОКУС НА РЕЗУЛЬТАТ</span></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="bottom-form section-dark">
+			<div class="container">
+				<div class="form-promo corner-bracket">
+					<h2 class="promo-title">РОЗКАЖІТЬ ЗАДАЧУ —<br/>МИ ЗАПРОПОНУЄМО РОБОЧЕ РІШЕННЯ</h2>
+					<p class="promo-text">Обговоримо і знайдемо підхід, який дасть результат саме у вашому випадку.</p>
+					<div class="promo-actions">
+						<a href="/kontakty#form" class="btn btn-primary">ОБГОВОРИТИ ПРОЄКТ <span class="arrow">→</span></a>
+						<a href="https://t.me/velych_co" class="btn btn-outline">НАПИСАТИ В TELEGRAM</a>
+					</div>
+				</div>
+			</div>
+		</section>
 	</main>
+
 	<Footer />
 </BaseLayout>
 
 <style>
 	.page-hero {
-		padding: 10rem 0 6rem;
+		padding: 4rem 0;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
 	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		align-items: center;
+		gap: 4rem;
+	}
+
+	.breadcrumbs {
+		font-size: 0.75rem;
+		font-weight: 800;
+		opacity: 0.5;
+		margin-bottom: 2rem;
+		letter-spacing: 0.1em;
+	}
+
 	.page-title {
-		font-size: clamp(3rem, 8vw, 6rem);
-		margin: 2rem 0;
+		font-size: clamp(4rem, 12vw, 8.5rem);
+		margin-bottom: 2rem;
 	}
-	.page-subtitle {
+
+	.hero-main-text {
 		font-size: 1.5rem;
-		font-weight: 500;
+		font-weight: 800;
 		max-width: 600px;
-		opacity: 0.8;
+		margin-bottom: 1.5rem;
+		line-height: 1.1;
+	}
+
+	.hero-sub-text {
+		font-size: 1.1rem;
+		opacity: 0.6;
+		max-width: 500px;
+	}
+
+	.hero-visual {
+		display: flex;
+		justify-content: flex-end;
+		position: relative;
+	}
+
+	.hero-cube {
+		max-width: 100%;
+		mix-blend-mode: multiply;
+		filter: grayscale(1);
+	}
+
+	.cube-label {
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-weight: 800;
+		opacity: 0.3;
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 1.5rem;
+		padding: 4rem 0;
+	}
+
+	.service-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		min-height: 320px;
+		background-color: #fafafa;
+	}
+
+	.card-icon {
+		font-size: 2.5rem;
+	}
+
+	.card-title {
+		font-size: 1.5rem;
+		letter-spacing: -0.02em;
+	}
+
+	.card-desc {
+		font-size: 0.95rem;
+		opacity: 0.7;
+	}
+
+	.card-footer {
+		margin-top: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 2rem;
+		border-top: 1px solid rgba(0,0,0,0.05);
+	}
+
+	.card-tag {
+		font-size: 0.75rem;
+		font-weight: 800;
+		opacity: 0.4;
+	}
+
+	.card-arrow {
+		font-weight: 800;
+		font-size: 1.2rem;
+	}
+
+	.benefits-strip {
+		padding: 4rem 0;
+	}
+
+	.benefits-flex {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 2rem;
+	}
+
+	.b-item {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 0.85rem;
+		font-weight: 800;
+	}
+
+	.bottom-form {
+		padding: 8rem 0;
+	}
+
+	.form-promo {
+		padding: 6rem 4rem;
+		background-color: #0c0c0c;
+	}
+
+	.promo-title {
+		font-size: clamp(1.5rem, 5vw, 3.5rem);
+		margin-bottom: 1.5rem;
+	}
+
+	.promo-text {
+		opacity: 0.6;
+		margin-bottom: 3rem;
+		font-size: 1.1rem;
+	}
+
+	.promo-actions {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.btn-outline {
+		background: transparent;
+		border-color: rgba(255,255,255,0.2);
+	}
+
+	@media (max-width: 1024px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+		}
+		.hero-visual {
+			justify-content: center;
+			max-width: 400px;
+			margin: 0 auto;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.services-grid {
+			grid-template-columns: 1fr;
+		}
+		.promo-actions {
+			flex-direction: column;
+		}
 	}
 </style>

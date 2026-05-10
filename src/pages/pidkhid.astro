@@ -9,10 +9,24 @@ import Footer from '../components/Footer.astro';
 	<Header />
 	<main>
 		<section class="page-hero">
-			<div class="container">
-				<div class="outline-badge">Філософія</div>
-				<h1 class="page-title">Наш підхід</h1>
-				<p class="page-subtitle">Чесно, без води. Спочатку процес та бізнес-логіка, потім дизайн.</p>
+			<div class="container hero-inner">
+				<div class="hero-content">
+					<div class="outline-badge">Філософія</div>
+					<h1 class="page-title">Наш підхід</h1>
+					<p class="page-subtitle">Чесно, без води. Спочатку процес та бізнес-логіка, потім дизайн.</p>
+				</div>
+				<div class="hero-visual">
+					<div class="cube-wrapper corner-bracket">
+						<img 
+							src="/images/brand/concrete-cube.webp" 
+							alt="VELYCH.CO Concrete Cube" 
+							class="cube-image"
+							width="500"
+							height="625"
+							loading="eager"
+						/>
+					</div>
+				</div>
 			</div>
 		</section>
 		
@@ -40,38 +54,88 @@ import Footer from '../components/Footer.astro';
 
 <style>
 	.page-hero {
-		padding: 10rem 0 6rem;
+		padding: 8rem 0;
+		min-height: 70vh;
+		display: flex;
+		align-items: center;
 	}
+
+	.hero-inner {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: 4rem;
+		align-items: center;
+	}
+
 	.page-title {
 		font-size: clamp(3rem, 8vw, 6rem);
 		margin: 2rem 0;
 	}
+
 	.page-subtitle {
 		font-size: 1.5rem;
 		font-weight: 500;
 		max-width: 600px;
+		opacity: 0.8;
 	}
+
+	.hero-visual {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.cube-wrapper {
+		position: relative;
+		display: inline-block;
+	}
+
+	.cube-image {
+		max-width: 100%;
+		height: auto;
+		display: block;
+		filter: grayscale(1);
+		mix-blend-mode: multiply;
+	}
+
 	.approach-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;
 	}
+
 	.card-dark {
 		background-color: var(--color-black);
 		color: var(--color-white);
 		border-color: rgba(255,255,255,0.1);
 	}
+
 	.card-dark h3 {
 		font-size: 1.8rem;
 		margin-bottom: 1.5rem;
 		color: var(--color-lime);
 	}
+
 	.card-dark p {
 		font-size: 1.1rem;
 		opacity: 0.8;
 		line-height: 1.6;
 	}
+
+	@media (max-width: 1024px) {
+		.hero-inner {
+			grid-template-columns: 1fr;
+			gap: 4rem;
+		}
+		.hero-visual {
+			justify-content: flex-start;
+			max-width: 300px;
+		}
+	}
+
 	@media (max-width: 768px) {
+		.page-hero {
+			padding: 6rem 0 4rem;
+		}
 		.approach-grid {
 			grid-template-columns: 1fr;
 		}

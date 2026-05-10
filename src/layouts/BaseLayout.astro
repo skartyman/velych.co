@@ -31,9 +31,22 @@ const { title, description = "Українська веб-компанія. Ро
 		<div class="noise-overlay"></div>
 		<slot />
 		
-		<a href="#form" class="mobile-cta-sticky btn btn-primary">
+		<button id="sticky-cta" class="mobile-cta-sticky btn btn-primary">
 			Обговорити проєкт <span class="arrow">→</span>
-		</a>
+		</button>
+
+		<script>
+			// Sticky CTA click handler
+			const stickyCta = document.getElementById('sticky-cta');
+			stickyCta?.addEventListener('click', () => {
+				const formElement = document.getElementById('form');
+				if (formElement) {
+					formElement.scrollIntoView({ behavior: 'smooth' });
+				} else {
+					window.location.href = '/#form';
+				}
+			});
+		</script>
 
 		<style is:global>
 			:root {
@@ -64,6 +77,10 @@ const { title, description = "Українська веб-компанія. Ро
 				line-height: 1.4;
 				overflow-x: hidden;
 				-webkit-font-smoothing: antialiased;
+			}
+
+			body.menu-open {
+				overflow: hidden;
 			}
 
 			h1, h2, h3, h4, h5, h6 {
